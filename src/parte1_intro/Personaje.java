@@ -9,6 +9,8 @@ public class Personaje {
 	
 	private int vida;
 	
+	private int puntosFuerza;
+	
 	private int puntos;
 	
 	private String[] mochila = new String[9];
@@ -19,14 +21,19 @@ public class Personaje {
 		super();
 	}
 
-	public Personaje(String nombre, int vida, int puntos, String[] mochila, int posMochila) {
+
+
+	public Personaje(String nombre, int vida, int puntosFuerza, int puntos, String[] mochila, int posMochila) {
 		super();
 		this.nombre = nombre;
 		this.vida = vida;
+		this.puntosFuerza = puntosFuerza;
 		this.puntos = puntos;
 		this.mochila = mochila;
 		this.posMochila = posMochila;
 	}
+
+
 
 	public String getNombre() {
 		return nombre;
@@ -68,7 +75,17 @@ public class Personaje {
 		this.posMochila = posMochila;
 	}
 
-	public void agregarPocion() {
+	
+	
+	public int getPuntosFuerza() {
+		return puntosFuerza;
+	}
+
+	public void setPuntosFuerza(int puntosFuerza) {
+		this.puntosFuerza = puntosFuerza;
+	}
+
+	public void agregarPocion(String pocion) {
 		
 		if(mochila[9].isEmpty()) {
 			
@@ -76,7 +93,7 @@ public class Personaje {
 			
 			for (int i = 0; i < mochila.length; i++) {
 				if(mochila[i].isEmpty()) {
-					mochila[i]="Pocion"; 					
+					mochila[i]=pocion; 					
 				}
 				elementos = i;
 			}	
@@ -95,13 +112,14 @@ public class Personaje {
 		
 		if (vida-puntoGolpe<=0) {
 			
-			System.out.println("Estás muerto");
+			System.out.println(nombre+" ha muerto");
+			vida=0;
 			
 		}else {
 			
 			vida -=puntoGolpe;
 			
-			System.out.println("Te quedan "+vida+" de vida.");
+			System.out.println("a "+nombre+" le quedan "+vida+" puntos de vida.");
 			
 		}
 		
@@ -113,13 +131,18 @@ public class Personaje {
 		
 		boolean tiene = false;
 		
+		
+		
+		
 		for (int i = 0; i < mochila.length; i++) {
+					
+		if(mochila[i]!=null) {
 			
 			if(mochila[i].equalsIgnoreCase("Botiquin")) {
 				
 				tiene=true;
 				
-				if(vida<=90) {
+				if(vida>=90) {
 					
 					vida=100;
 					
@@ -127,29 +150,71 @@ public class Personaje {
 					
 					vida+=10;
 					
-				}		
+				}	
+				
+				mochila[i] = null;
+				
 			}
 		}
+		
+	}
 		if(!tiene) {
 			
-			System.out.println("Lo siento pero no tienes botiquin");
+			System.out.println(nombre+" no tiene botiquin");
 			
 		}else {
 			
-			System.out.println("Tus puntos de vida son "+vida);
+			System.out.println(nombre+ " ha usado un botiquin y ahora tiene "+vida+ " de vida");
 			
 		}
 	}
+
+
+	public void pocionFuerza() {
+		
+		boolean tiene = false;
+		
+		for (int i = 0; i < mochila.length; i++) {
+			
+			if(mochila[i]!=null) {
+			
+			if(mochila[i].equalsIgnoreCase("PocionF")) {
+				
+				tiene=true;
+				
+				puntosFuerza = puntosFuerza *2;
+				
+				mochila[i] = null;
+
+			}
+		}
+		}
+		if(!tiene) {
+			
+			System.out.println(nombre+" no tiene poción de Fuerza");
+			
+		}else {
+			
+			System.out.println("Los ataques de "+nombre+" son mas fuertes");
+			
+		}
+	}	
+		
+		
 	
 	
+	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + Arrays.hashCode(mochila);
-		result = prime * result + Objects.hash(nombre, posMochila, puntos, vida);
+		result = prime * result + Objects.hash(nombre, posMochila, puntos, puntosFuerza, vida);
 		return result;
 	}
+
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -161,15 +226,19 @@ public class Personaje {
 			return false;
 		Personaje other = (Personaje) obj;
 		return Arrays.equals(mochila, other.mochila) && Objects.equals(nombre, other.nombre)
-				&& posMochila == other.posMochila && puntos == other.puntos && vida == other.vida;
+				&& posMochila == other.posMochila && puntos == other.puntos && puntosFuerza == other.puntosFuerza
+				&& vida == other.vida;
 	}
+
+
 
 	@Override
 	public String toString() {
-		return "Personaje [nombre=" + nombre + ", vida=" + vida + ", puntos=" + puntos + ", mochila="
-				+ Arrays.toString(mochila) + ", posMochila=" + posMochila + "]";
+		return "Personaje [nombre=" + nombre + ", vida=" + vida + ", puntosFuerza=" + puntosFuerza + ", puntos="
+				+ puntos + ", mochila=" + Arrays.toString(mochila) + ", posMochila=" + posMochila + "]";
 	}
-
+	
+	
 	
 	
 	
