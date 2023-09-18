@@ -34,8 +34,7 @@ public class Batalla {
 		
 		int damage = 0;
 		
-		while(j1.getVida()>0&&j2.getVida()>0) {
-					
+			
 			int random = (int) (Math.random() * 3 + 1);
 			
 			if(j1.getVida()>0) {
@@ -46,13 +45,6 @@ public class Batalla {
 			
 			j2.recibirGolpe(damage);
 			
-				if(j1.getVida()<30) {
-					
-					j1.usarBotiquin();
-					j1.pocionFuerza();
-					
-				}
-			
 			}
 			
 			if(j2.getVida()>0) {
@@ -62,26 +54,12 @@ public class Batalla {
 			System.out.println(j2.getNombre()+" ha hecho un ataque de "+damage+" a "+j1.getNombre());
 			
 			j1.recibirGolpe(damage);
-			
-				if(j2.getVida()<30) {
-					
-					j2.usarBotiquin();
-					j2.pocionFuerza();
-					
-				}
+
 
 			}
 			
-			
-			
-
 		}
 		
-		
-		
-		
-		
-	}
 	
 	
 	@Override

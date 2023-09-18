@@ -87,26 +87,20 @@ public class Personaje {
 
 	public void agregarPocion(String pocion) {
 		
-		if(mochila[9].isEmpty()) {
-			
-			int elementos = 0;
-			
+		if(mochila[9]==null) {		
 			for (int i = 0; i < mochila.length; i++) {
-				if(mochila[i].isEmpty()) {
-					mochila[i]=pocion; 					
+				if(mochila[i]==null) {
+					mochila[i]=pocion;
+					
 				}
-				elementos = i;
-			}	
-			
-			System.out.println("Hay "+elementos+1+"elementos en la mochila");
-			
-		}else {
-			
-			System.out.println("YA NO PUEDES CONSEGUIR MÁS ELEMENTOS PUES TU MOCHILA ESTÁ COMPLETA");
-
+			}
 		}
+			
+			
+
+	}	
 		
-	}
+	
 	
 	public void recibirGolpe(int puntoGolpe) {
 		
@@ -129,10 +123,11 @@ public class Personaje {
 	
 	public void usarBotiquin() {
 		
+		if(vida<30) {
+			
+		
+		
 		boolean tiene = false;
-		
-		
-		
 		
 		for (int i = 0; i < mochila.length; i++) {
 					
@@ -167,11 +162,16 @@ public class Personaje {
 			System.out.println(nombre+ " ha usado un botiquin y ahora tiene "+vida+ " de vida");
 			
 		}
+	}else {
+		
+		System.out.println("Tiene demasiada vida");
 	}
 
-
+	}
 	public void pocionFuerza() {
 		
+		if(vida<30) {
+
 		boolean tiene = false;
 		
 		for (int i = 0; i < mochila.length; i++) {
@@ -198,6 +198,10 @@ public class Personaje {
 			System.out.println("Los ataques de "+nombre+" son mas fuertes");
 			
 		}
+			}else {
+		
+				System.out.println("Tiene demasiada vida");
+			}
 	}	
 		
 		
